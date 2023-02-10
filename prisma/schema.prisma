@@ -6,3 +6,41 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model access_modules {
+  id         String   @id @db.VarChar(55)
+  user_id    String   @db.VarChar(55)
+  module_id  String   @db.VarChar(55)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model modules {
+  id         String   @db.VarChar(55)
+  module     String   @db.VarChar(55)
+  sub_module String   @db.VarChar(55)
+  route      String   @db.VarChar(55)
+  role_id    String   @db.VarChar(55)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+
+  @@ignore
+}
+
+model roles {
+  id         String   @id @db.VarChar(55)
+  name       String   @db.VarChar(55)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+}
+
+model users {
+  id           String   @id @db.VarChar(55)
+  name         String   @db.VarChar(55)
+  email        String   @db.VarChar(55)
+  phone_number String   @db.VarChar(18)
+  role_id      String   @db.VarChar(55)
+  created_at   DateTime @default(now()) @db.DateTime(0)
+  updated_at   DateTime @default(now()) @db.DateTime(0)
+}
